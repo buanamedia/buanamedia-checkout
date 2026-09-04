@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pembayaran - Buana Media</title>
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --accent-orange: #f97316;
+            --accent-green: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .checkout-container {
+            width: 100%;
+            max-width: 480px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white;
+            padding: 28px 24px;
+            text-align: center;
+            position: relative;
+        }
+
+        .brand-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .header h1 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .header p {
+            font-size: 13px;
+            color: #94a3b8;
+        }
+
+        .demo-banner {
+            background-color: #fff7ed;
+            border-bottom: 1px solid #ffedd5;
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            font-size: 12px;
+            color: #c2410c;
+            font-weight: 600;
+        }
+
+        .demo-badge {
+            background-color: var(--accent-orange);
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 10px;
+            text-transform: uppercase;
+        }
+
+        .body {
+            padding: 24px;
+        }
+
+        .product-summary {
+            background-color: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 24px;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .summary-item:last-child {
+            margin-bottom: 0;
+            padding-top: 10px;
+            border-top: 1px dashed var(--border-color);
+            font-weight: 700;
+            font-size: 16px;
+            color: var(--text-main);
+        }
+
+        .summary-label {
+            color: var(--text-muted);
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 6px;
+            color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px 14px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+            outline: none;
+            background-color: #fff;
+        }
+
+        .form-control:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .payment-methods {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-top: 6px;
+        }
+
+        .method-card {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .method-card:hover {
+            border-color: var(--primary-color);
+            background-color: #f0f6ff;
+        }
+
+        .method-card.active {
+            border-color: var(--primary-color);
+            background-color: #eff6ff;
+            box-shadow: 0 0 0 1px var(--primary-color);
+        }
+
+        .method-title {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .btn-pay {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .btn-pay:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .footer-note {
+            text-align: center;
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .secure-icon {
+            width: 14px;
+            height: 14px;
+            fill: var(--accent-green);
+        }
+    </style>
+</head>
+<body>
+
+<div class="checkout-container">
+    <div class="header">
+        <span class="brand-badge">Buana Media</span>
+        <h1>Formulir Pembayaran</h1>
+        <p>Selesaikan pembayaran layanan / produk Anda</p>
+    </div>
+
+    <!-- Banner Demo / Sandbox Mode -->
+    <div class="demo-banner">
+        <span class="demo-badge">Sandbox</span>
+        <span>Mode Demonstrasi — Tidak ada tagihan nyata</span>
+    </div>
+
+    <div class="body">
+        <!-- Rincian Produk -->
+        <div class="product-summary">
+            <div class="summary-item">
+                <span class="summary-label">Produk / Layanan</span>
+                <span>Layanan Digital Demo</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Kode Ref</span>
+                <span>#BM-DEMO-2026</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-label">Total Bayar</span>
+                <span style="color: var(--primary-color);">Rp 50.000</span>
+            </div>
+        </div>
+
+        <!-- Form Data Pembeli -->
+        <form id="paymentForm" onsubmit="handlePayment(event)">
+            <div class="form-group">
+                <label for="fullName">Nama Lengkap</label>
+                <input type="text" id="fullName" class="form-control" placeholder="Masukkan nama Anda" required>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Alamat Email</label>
+                <input type="email" id="email" class="form-control" placeholder="contoh@email.com" required>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Nomor WhatsApp</label>
+                <input type="tel" id="phone" class="form-control" placeholder="08123456789" required>
+            </div>
+
+            <!-- Tombol Aksi Pembayaran ke Link Kasera Pay Sandbox -->
+            <button type="submit" class="btn-pay">
+                <span>Bayar Sekarang (Kasera Pay)</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+            </button>
+        </form>
+
+        <div class="footer-note">
+            <svg class="secure-icon" viewBox="0 0 24 24"><path d="M12 2L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-3zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 9z"/></svg>
+            <span>Ditenagai oleh <strong>Kasera Pay Sandbox</strong></span>
+        </div>
+    </div>
+</div>
+
+<script>
+    function handlePayment(event) {
+        event.preventDefault();
+
+        // Ambil input data dari pembeli
+        const name = document.getElementById('fullName').value;
+        const email = document.getElementById('email').value;
+
+        // MASUKKAN URL PAYMENT LINK KASERA PAY SANDBOX ANDA DI SINI
+        // Contoh URL Kasera Pay Sandbox Link:
+        const kaseraSandboxUrl = "https://pay.kasera.id/pp/buanamedia";
+
+        alert("Mengalihkan ke gateway Kasera Pay (Mode Demo)...");
+
+        // Buka link Kasera Pay Sandbox
+        window.location.href = kaseraSandboxUrl;
+    }
+</script>
+
+</body>
+</html>
