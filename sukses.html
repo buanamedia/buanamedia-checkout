@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pembayaran Berhasil - Buana Media</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background-color: #f3f4f6;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .card {
+      background: #ffffff;
+      max-width: 450px;
+      width: 100%;
+      padding: 32px 24px;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+      text-align: center;
+    }
+    .icon-container {
+      width: 72px;
+      height: 72px;
+      background-color: #e6f4ea;
+      color: #137333;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+    }
+    .icon-container svg {
+      width: 40px;
+      height: 40px;
+      fill: currentColor;
+    }
+    h1 {
+      font-size: 24px;
+      color: #1f2937;
+      margin: 0 0 8px;
+      font-weight: 700;
+    }
+    p.subtitle {
+      color: #6b7280;
+      font-size: 14px;
+      margin: 0 0 24px;
+    }
+    .details-box {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      padding: 6px 0;
+      border-bottom: 1px dashed #e5e7eb;
+    }
+    .detail-row:last-child {
+      border-bottom: none;
+    }
+    .detail-label {
+      color: #6b7280;
+    }
+    .detail-value {
+      color: #111827;
+      font-weight: 600;
+      text-align: right;
+    }
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      background-color: #2563eb;
+      color: #ffffff;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 6px;
+      transition: background-color 0.2s ease;
+      box-sizing: border-box;
+    }
+    .btn:hover {
+      background-color: #1d4ed8;
+    }
+    .btn-secondary {
+      background-color: #25d366;
+      margin-top: 10px;
+    }
+    .btn-secondary:hover {
+      background-color: #1eb956;
+    }
+    .footer-text {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- Icon Centang / Sukses -->
+    <div class="icon-container">
+      <svg viewBox="0 0 24 24">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+    </div>
+
+    <h1>Pembayaran Berhasil!</h1>
+    <p class="subtitle">Terima kasih, pesanan Anda telah kami terima dan sedang diproses.</p>
+
+    <!-- Rincian Transaksi -->
+    <div class="details-box">
+      <div class="detail-row">
+        <span class="detail-label">ID Transaksi</span>
+        <span class="detail-value" id="trx-id">-</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Status</span>
+        <span class="detail-value" style="color: #16a34a;">PAID / LUNAS</span>
+      </div>
+      <div class="detail-row">
+        <span class="detail-label">Tanggal</span>
+        <span class="detail-value" id="trx-date">-</span>
+      </div>
+    </div>
+
+    <!-- Tombol Aksi -->
+    <a href="https://buanamedia.my.id" class="btn">Kembali ke Utama</a>
+    <a href="https://wa.me/6281234567890?text=Halo%20Buana%20Media,%20saya%20sudah%20melakukan%20pembayaran." id="btn-wa" class="btn btn-secondary" target="_blank">Konfirmasi via WhatsApp</a>
+
+    <p class="footer-text">&copy; Buana Media - Semua hak dilindungi.</p>
+  </div>
+
+  <script>
+    // Membaca query string URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const trxId = urlParams.get('trx_id') || urlParams.get('reference') || urlParams.get('order_id') || 'BM-' + Math.floor(100000 + Math.random() * 900000);
+
+    // Menampilkan ID Transaksi
+    document.getElementById('trx-id').innerText = trxId;
+
+    // Menampilkan Tanggal Hari Ini
+    const today = new Date();
+    const options = { year: 'numeric', month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' };
+    document.getElementById('trx-date').innerText = today.toLocaleDateString('id-ID', options);
+
+    // Mengubah tautan WhatsApp agar menyertakan ID Transaksi
+    const waNumber = "6281234567890"; // Ganti dengan nomor WhatsApp Anda
+    const waText = encodeURIComponent(`Halo Buana Media, saya telah melakukan pembayaran dengan ID Transaksi: ${trxId}. Mohon diproses.`);
+    document.getElementById('btn-wa').href = `https://wa.me/${waNumber}?text=${waText}`;
+  </script>
+
+</body>
+</html>
